@@ -1,5 +1,7 @@
 #include <iostream>
 
 int main(){
-    std::cout << "Hello World";
+    double x = 234.1;
+    double y = 34.6;
+    std::cout << "hi";
 }
