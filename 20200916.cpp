@@ -1,10 +1,12 @@
 #include <iostream> 
+#include <cassert>
 
 using namespace std;
+ int in1;
 
 void function1(){
     // declare and initialize variables
-    int in1 = 42;
+    in1 = 1;
 
     // perform computation and output value
     if(in1 > 42){
@@ -16,6 +18,7 @@ void function1(){
     else{
         cout << 41;
     }
+    assert(2 > 32);
 }
 
 void function2(){
@@ -34,5 +37,5 @@ void function2(){
 
 }
 int main(){
-    function2();
+    function1();
 }
