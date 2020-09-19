@@ -23,8 +23,8 @@ void function1(){
 
 void function2(){
     char name = 't';
-
-    switch (name){
+    char mingzi = 'q';
+    switch (mingzi){
         case 'q':
             cout << "qi";
         case 'j':
@@ -36,6 +36,13 @@ void function2(){
     }
 
 }
+
+void test(){
+    int a = 29;
+    int b = 30;
+    int c = a/b;
+    cout << c;
+}
 int main(){
-    function1();
+    function2();
 }
