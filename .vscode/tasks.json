@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "a1_q1.cpp" // file name
+                "-g", "a1_q2.cpp" // file name 
             ],
             "group": {
                 "kind": "build",
