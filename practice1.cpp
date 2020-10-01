@@ -45,7 +45,17 @@ int nthdigit(int x, int n){
     return (x % 10);
 }
 
+void f3(int& a, int b){
+    a = 3;
+    b = 32;
+    cout << a << " + " << b << endl;
+}
+
+void f4(double& v1, int v2, double& v3){
+    v1 = v3 = v2;  
+}
 int main(){
-    f2();
-    
+    double v1 = 4, v2 = 8, v3 = 12;
+    f4(v1, v2, v3);
+    cout << v1 << " " << v2 << " " << v3 << endl;
 }

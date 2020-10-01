@@ -10,10 +10,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/a.exe", // debug file
             "args": [],
-            "stopAtEntry": false,
+            "stopAtEntry": false, 
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true, // if debug then false, if run then true
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
             "preLaunchTask": "echo",
