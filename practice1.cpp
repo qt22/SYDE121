@@ -54,8 +54,21 @@ void f3(int& a, int b){
 void f4(double& v1, int v2, double& v3){
     v1 = v3 = v2;  
 }
+
+void f5(){
+    int integers[3] = {34, 42, 13};
+    for(auto data: integers){
+        cout << data << " ";
+    }
+}
+void drawcells(int n){
+    if(n > 1){
+        drawcells(--n);
+    }else{
+        
+    }
+}
+
 int main(){
-    double v1 = 4, v2 = 8, v3 = 12;
-    f4(v1, v2, v3);
-    cout << v1 << " " << v2 << " " << v3 << endl;
+    f5();
 }
