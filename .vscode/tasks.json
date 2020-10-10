@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "practice1.cpp" // file name 
+                "-g", "a2_p1.cpp" // file name 
             ],
             "group": {
                 "kind": "build",

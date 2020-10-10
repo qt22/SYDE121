@@ -37,14 +37,6 @@ void f3(){
     }
 }
 
-
-int nthdigit(int x, int n){
-    while (--n) {
-        x /= 10;
-    }
-    return (x % 10);
-}
-
 void f3(int& a, int b){
     a = 3;
     b = 32;
@@ -70,5 +62,7 @@ void drawcells(int n){
 }
 
 int main(){
-    f5();
+    long int num = 212345234;
+    int ten = 10;
+    cout << num/ten;
 }
