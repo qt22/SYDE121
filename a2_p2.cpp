@@ -34,6 +34,7 @@
 //
 // Test cases: 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 double distance(int start_time, int end_time);
@@ -77,18 +78,58 @@ double distance(double start_time, double end_time){
 }
 
 void distance_in_30_seconds(){
-    const int ARRAY_SIZE = 31, ARRAY_SIZE_2 = 2, DEFAULT_VALUE = 0;
-    int distances[ARRAY_SIZE][ARRAY_SIZE_2] = {{DEFAULT_VALUE, DEFAULT_VALUE}};
+    const int ARRAY_SIZE = 31, ARRAY_SIZE_2 = 2, 
+              DEFAULT_VALUE = 0, START_TIME = 0,
+              START_DISTANCE = 0,
+              TIME_WIDTH = 16, DISTANCE_WIDTH = 36;
+    double distances[ARRAY_SIZE][ARRAY_SIZE_2] = {{DEFAULT_VALUE, DEFAULT_VALUE}};
 
     cout.setf(ios::fixed);
     cout.setf(ios::showpoint);
     cout.precision(3);
 
-    cout << "Time (in sec):   " << "Distance during interval (in m):   " 
-         << "Total distance (in m):   " << endl; 
+    cout << left << setw(TIME_WIDTH) << "Time (in sec):  " 
+         << setw(DISTANCE_WIDTH) << "Distance during interval (in m):  " 
+         << "Total distance (in m):  " << endl; 
 
+    distances[0][0] = START_DISTANCE; 
+    distances[0][1] = START_DISTANCE;
+    cout << left << setw(TIME_WIDTH) << START_TIME
+         << setw(DISTANCE_WIDTH) << distances[0][0] 
+         << distances[0][1] << endl;
+
+    for(int time = 1; time < ARRAY_SIZE; time++){
+        distances[time][0] = distance(time - 1, time);
+        distances[time][1] = distance(START_TIME, time);
+        cout << left << setw(TIME_WIDTH) << time 
+             << setw(DISTANCE_WIDTH) << distances[time][0] 
+             << distances[time][1] << endl;
+    }
+}
+
+void time_for_15000m(){
+    const int HEIGHT = 15000, START_TIME = 0;
+    const double PRECISE_HEIGHT = 15000.0, START_TIME_2 = 0.0,
+                 INCREMENT = 0.1;
+    int end_time = 1, falling_distance = 0;
+    double end_time_2 = 0, falling_distance_2 = 0;
+    
+    while(falling_distance < HEIGHT){
+        end_time++;
+        falling_distance = distance(START_TIME, end_time);
+    }   
+    
+    end_time_2 = --end_time;
+    falling_distance_2 = distance(START_TIME_2, end_time_2);
+    while(falling_distance_2 < PRECISE_HEIGHT){
+        end_time_2 += INCREMENT;
+        falling_distance_2 = distance(START_TIME_2, end_time_2);
+    }
+    
+    cout << "It will take " << end_time_2 << " seconds for the ball to reach the ground.";
 }
 
 int main() {
-    cout << distance(1.2, 3.5);
+    // distance_in_30_seconds();
+    time_for_15000m();
 }
