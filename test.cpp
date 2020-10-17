@@ -62,7 +62,5 @@ void drawcells(int n){
 }
 
 int main(){
-    long int num = 212345234;
-    int ten = 10;
-    cout << num/ten;
+
 }
