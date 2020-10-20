@@ -88,16 +88,48 @@ void hypotenuse(){
 }
 
 // week5_q1
-void mark_data(int num){
+void mark_data(){
+    int num, 
+    sum = 0 , min = 100, max = 1,
+    first_mark;
+
+    cout << "Enter the total amount of students " << endl;
+    cin >> num;
+
     vector<int> marks(0);
     srand(time(0));
+
+    // first_mark = rand() % 100 + 1;
+    // marks.push_back(first_mark);
+
     for(int index = 0; index < num; index++){
-        marks.push_back(rand() % 100 + 1);
+        int mark = rand() % 100 + 1;
+        marks.push_back(mark);
+        sum += mark;
+
+        if(marks.at(index) < min){
+            min = marks.at(index);
+        }
+        if(marks.at(index) > max){
+            max = marks.at(index);
+        }
         cout << marks.at(index) << endl;
     }
-   
+    
+    
+    double mean = sum*1.0 / num;
+    double standard_dev = 0;
+    for(int index = 0; index < num; index++){
+        standard_dev += (marks.at(index) - mean) * (marks.at(index) - mean);
+    }
+    standard_dev = sqrt(standard_dev / mean);
+
+    cout << "The mean mark is " << mean << '\n'
+        << "The maximum mark is " << max << '\n'
+        << "The minimum mark is " << min << '\n'
+        << "The standard deviation is " << standard_dev << endl;
 
 }
 int main(){
-    mark_data(10);
+    mark_data();
 }
