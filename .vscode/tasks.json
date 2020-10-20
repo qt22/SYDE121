@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "a2_p2.cpp" // file name 
+                "-g", "midterm_prep.cpp" // file name 
             ],
             "group": {
                 "kind": "build",
