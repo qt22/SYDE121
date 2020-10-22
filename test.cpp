@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 void f1(){
@@ -62,13 +63,13 @@ void drawcells(int n){
 }
 
 void f6(){
-    for (int i = 0; i < 100; i++)
-    {
-        /* code */
-    }
+    vector<int> numbers = {1, 23, 2, 35,73};
+    cout << numbers.size();
     
 }
 
-int main(){
 
+
+int main(){
+    f6();
 }

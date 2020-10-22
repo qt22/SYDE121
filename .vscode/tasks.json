@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "review_activity_6.cpp" // file name 
+                "-g", "Monotonic_Array_Problem.cpp" // file name 
             ],
             "group": {
                 "kind": "build",

@@ -8,7 +8,6 @@ void values(){
     while(true){
         cout << "Please enter the amount of double values you will enter." << endl;
         cin >> amount_of_values;
-        cin.get();
         if(amount_of_values > 0){
             break;
         }
@@ -19,7 +18,6 @@ void values(){
         double value;
         cout << "Enter a double value." << endl;
         cin >> value;
-        cin.get();
 
         if(value < min){
             min = value;
