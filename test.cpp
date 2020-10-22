@@ -61,6 +61,14 @@ void drawcells(int n){
     }
 }
 
+void f6(){
+    for (int i = 0; i < 100; i++)
+    {
+        /* code */
+    }
+    
+}
+
 int main(){
 
 }
