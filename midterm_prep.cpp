@@ -130,6 +130,13 @@ void mark_data(){
         << "The standard deviation is " << standard_dev << endl;
 
 }
+
+void sneaky(int x, int& y, int& z){
+    x = --y = z += 4;
+}
+
 int main(){
-    mark_data();
+    int a = 5, b = 2, c = 7;
+    sneaky(b, a, c);
+    cout << a << ' ' << b << ' ' << c;
 }

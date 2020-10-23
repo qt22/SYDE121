@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "Monotonic_Array_Problem.cpp" // file name 
+                "-g", "short_answer.cpp" // file name 
             ],
             "group": {
                 "kind": "build",
