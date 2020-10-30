@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "short_answer.cpp" // file name 
+                "-g", "control_flow.cpp" // file name 
             ],
             "group": {
                 "kind": "build",
