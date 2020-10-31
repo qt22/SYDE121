@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "control_flow.cpp" // file name 
+                "-g", "a3_q1.cpp" // file name 
             ],
             "group": {
                 "kind": "build",
