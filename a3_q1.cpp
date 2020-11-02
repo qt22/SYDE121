@@ -42,43 +42,45 @@
 
     <Windows.h> is imported into this program so it only works in a windows system.
 */
+//
+// Assumptions: If the goal keeper or any other players save the ball, it is counted as a shot on goal and a blocked shot.
+//              If a yellow card or a red card is given, it is counted as a foul.
 #include <iostream>
 #include <ctime>
 #include <Windows.h>
 #include <unistd.h>
 using namespace std;
 
-int shots_on_goal = 0, shots_off_goal = 0, blocked_shots = 0,
-    fouls = 0, yellow_cards = 0, red_cards = 0;
 
-void foul_rng(char team, int event);
+
+void foul_rng(char team, int event, int& fouls, int& yellow_cards, int& red_cards);
 // PURPOSE: Determine the penalty of the foul.
 // INPUT: the team A or B and the random event number
 // OUTPUT: penalty: warning, yellow card or red card
 
-bool goal_rng(char team, int event);
+void goal_rng(char team, int event, int& shots_on_goal, int& A_score, int& B_score, 
+              int& shots_off_goal, int& blocked_shots);
 // PURPOSE: Determine if the team scores a goal.
 // INPUT: the team A or B and the random event number
-// OUTPUT: return 1 if a team scored, 0 if no team scored.
+// OUTPUT: 
 
-bool penalty_goal_rng(char team, int event);
+void penalty_goal_rng(char team, int event, int& shots_on_goal, int& A_score, int& B_score, 
+              int& shots_off_goal, int& blocked_shots);
 // PURPOSE: Determine if the team scores a goal from penalty kick.
 // INPUT: the team A or B and the random event number
-// OUTPUT: return 1 if a team scored, 0 if no team scored.
-
-bool dice(int event, int goal_event, int foul_event, int penalty_goal_event);
-// PURPOSE: Determine the type of the event.
-// INPUT: random event number for each type of event
-// OUTPUT: return 1 if a team scored, 0 if no team scored.
+// OUTPUT: 
 
 void start_soccer_game();
 // PURPOSE: Simulate the whole soccer game.
 // INPUT: N/A
 // OUTPUT: result of first half and second half of the game
 
-void foul_rng(char team, int event){
+void foul_rng(char team, int event, int& fouls, int& yellow_cards, int& red_cards){
     // variable declaration and definition
-    const int NO_PENALTY = 0, YELLOW_CARD = 1, RED_CARD = 2;
+    const int NO_PENALTY = 0, YELLOW_CARD = 1, RED_CARD = 2, TIME_DELAY = 500;
+
+    // delay event
+    Sleep(TIME_DELAY);
 
     // Find the event based on the given random number
     // and output the results and log stats of the game.
@@ -96,22 +98,26 @@ void foul_rng(char team, int event){
     }
 }
 
-bool goal_rng(char team, int event){
+void goal_rng(char team, int event, int& shots_on_goal, int& A_score, int& B_score, 
+              int& shots_off_goal, int& blocked_shots){
     // variable declaration and definition
     const int SCORE = 0, SAVED_BY_KEEPER = 1,
-              OFF_TARGET = 2, SAVED_BY_DEFENDER = 3;
+              OFF_TARGET = 2, SAVED_BY_DEFENDER = 3, TIME_DELAY = 500;
+
+    // delay event
+    Sleep(TIME_DELAY);
 
     // Find the event based on the given random number
     // and output the results and log stats of the game.
     if(event == SCORE){
         if(team == 'A'){
             cout << "GOALLLLLLL for team A!!!" << endl;
+            A_score++;
             shots_on_goal++;
-            return true;
         }else{
             cout << "GOALLLLLLL for team B!!!" << endl;
+            B_score++;
             shots_on_goal++;
-            return true;
         }
     }else if(event == SAVED_BY_KEEPER){
         cout << "SAVED BY THE KEEPER!" << endl;
@@ -125,95 +131,89 @@ bool goal_rng(char team, int event){
         shots_on_goal++;
         blocked_shots++;
     }
-    return false;
 }
 
-bool penalty_goal_rng(char team, int event){
+void penalty_goal_rng(char team, int event, int& shots_on_goal, int& A_score, int& B_score, 
+              int& shots_off_goal, int& blocked_shots){
     // variable declaration and definition
     const int SCORE = 0, SAVED_BY_KEEPER = 1,
-              OFF_TARGET = 2;
+              OFF_TARGET = 2, TIME_DELAY = 500;
+
+    // delay event
+    Sleep(TIME_DELAY);
 
     // Find the event based on the given random number
     // and output the results and log stats of the game.
     if(event == SCORE){
         if(team == 'A'){
             cout << "GOALLLLLLL for team A!!!" << endl;
+            A_score++;
             shots_on_goal++;
-            return true;
         }else{
             cout << "GOALLLLLLL for team B!!!" << endl;
+            B_score++;
             shots_on_goal++;
-            return true;
         }
     }else if(event == SAVED_BY_KEEPER){
         cout << "SAVED BY THE KEEPER!" << endl;
         shots_on_goal++;
         blocked_shots++;
     }else if(event == OFF_TARGET){
-        cout << "VERY CLOSE TO A GOAL" << endl;
+        cout << "OH NO! HE MISSED!!" << endl;
         shots_off_goal++;
-    }
-    return false;
-}
-
-bool dice(int event, int goal_event, int foul_event, int penalty_goal_event){
-    // variable declaration and definition
-    const int A_ON_TARGET = 1, B_ON_TARGET = 2,
-              A_FREE_KICK = 3, B_FREE_KICK = 4, 
-              A_PENALTY_KICK = 5, B_PENALTY_KICK = 6;
-
-    // Find the event based on the given random number 
-    // also pass on the result from children functions to the parent function.
-    if(event < A_FREE_KICK){ // event: shot on target
-        if(event == A_ON_TARGET){
-            cout << "Team A has a shot on target!!" << endl;
-            return goal_rng('A', goal_event); 
-        }else{
-            cout << "Team B has a shot on target!!" << endl;
-            return goal_rng('B', goal_event);
-        }
-    }else if(event >= A_FREE_KICK && event < A_PENALTY_KICK){ // event: free kick
-        if(event == A_FREE_KICK){
-            cout << "Free Kick for TEAM A!" << endl;
-            foul_rng('B', foul_event);
-            return goal_rng('A', goal_event);
-        }else{
-            cout << "Free Kick for TEAM B!" << endl;
-            foul_rng('A', foul_event);
-            return goal_rng('B', goal_event);
-        }
-    }else{// event: penalty kick
-        if(event == A_PENALTY_KICK){
-            cout << "PENALTY KICK chance for TEAM A!!!" << endl;
-            foul_rng('B', foul_event);
-            return penalty_goal_rng('A', penalty_goal_event);
-        }else{
-            cout << "PENALTY KICK chance for TEAM B!!!" << endl;
-            foul_rng('A', foul_event);
-            return penalty_goal_rng('B', penalty_goal_event);
-        }
     }
 }
 
 void start_soccer_game(){
     // variable declaration and definition
     const int MAX_EVENT = 20, DICE = 6, GOAL = 4, FOUL = 3, PENALTY_GOAL = 3,
-              EVENT_TIME_DELAY = 2000, HALF_TIME = 8000;
+              EVENT_TIME_DELAY = 2000, HALF_TIME = 8000,
+              A_ON_TARGET = 1, B_ON_TARGET = 2,
+              A_FREE_KICK = 3, B_FREE_KICK = 4, 
+              A_PENALTY_KICK = 5, B_PENALTY_KICK = 6;
     srand(time(0)); // set the seed to time
     int num_events = rand() % MAX_EVENT + 1; // generate an integer between 1 and 20
-    int A_score = 0, B_score = 0;
+    int A_score = 0, B_score = 0, // stats
+        shots_on_goal = 0, shots_off_goal = 0, blocked_shots = 0,
+        fouls = 0, yellow_cards = 0, red_cards = 0;;
 
     
     for (int i = 0; i < num_events; i++){
-        int dice_event = rand() % DICE + 1; // generate an integer between 1 and 6
+        int event = rand() % DICE + 1; // generate an integer between 1 and 6
         int goal_event = rand() % GOAL; // generate an integer between 0 and 3
         int foul_event = rand() % FOUL; // generate an integer between 0 and 2
         int penalty_goal_event = rand() % PENALTY_GOAL; // generate an integer between 0 and 2
 
-        if(dice_event % 2){ // if the event number is odd, then A has a chance to score
-            A_score += dice(dice_event, goal_event, foul_event, penalty_goal_event);
-        }else{ // if the event number is even, then B has a chance to score
-            B_score += dice(dice_event, goal_event, foul_event, penalty_goal_event);
+        // Find the event based on the given random number 
+        // also pass on the result from children functions to the parent function.
+        if(event < A_FREE_KICK){ // event: shot on target
+            if(event == A_ON_TARGET){
+                cout << "Team A has a shot on target!!" << endl;
+                goal_rng('A', goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots); 
+            }else{
+                cout << "Team B has a shot on target!!" << endl;
+                goal_rng('B', goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots);
+            }
+        }else if(event >= A_FREE_KICK && event < A_PENALTY_KICK){ // event: free kick
+            if(event == A_FREE_KICK){
+                cout << "Free Kick for TEAM A!" << endl;
+                foul_rng('B', foul_event, fouls, yellow_cards, red_cards);
+                goal_rng('A', goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots);
+            }else{
+                cout << "Free Kick for TEAM B!" << endl;
+                foul_rng('A', foul_event, fouls, yellow_cards, red_cards);
+                goal_rng('B', goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots);
+            }
+        }else{// event: penalty kick
+            if(event == A_PENALTY_KICK){ // Team A penalty kick
+                cout << "PENALTY KICK chance for TEAM A!!!" << endl;
+                foul_rng('B', foul_event, fouls, yellow_cards, red_cards);
+                penalty_goal_rng('A', penalty_goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots);
+            }else{ // Team B penalty kick
+                cout << "PENALTY KICK chance for TEAM B!!!" << endl;
+                foul_rng('A', foul_event, fouls, yellow_cards, red_cards);
+                penalty_goal_rng('B', penalty_goal_event, shots_on_goal, A_score, B_score, shots_off_goal, blocked_shots);
+            }
         }
         cout << '\n';
         
