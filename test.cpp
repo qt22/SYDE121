@@ -1,14 +1,17 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
+#include <string>
 #include <ctime>
 using namespace std;
 
-void f(){
-    srand(1);
-    for(int i = 0; i <= 10; i++){
-        cout << rand() << endl;
-    }
+int f(int n){
+    return n*f(n-1);
 }
 int main(){
-    f();
+    string wife("Zelda");
+    string husband("Link");
+    wife.insert(3, husband + " loves ");
+    cout << wife;
+    
 }
