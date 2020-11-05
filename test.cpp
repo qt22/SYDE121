@@ -5,13 +5,16 @@
 #include <ctime>
 using namespace std;
 
-int f(int n){
-    return n*f(n-1);
+void function(unsigned int n){
+    if(n/10 == 0){
+        cout << n << endl;
+    }else{
+        function(n/10);
+        cout << n%10 << endl;
+        
+    }
 }
+
 int main(){
-    string wife("Zelda");
-    string husband("Link");
-    wife.insert(3, husband + " loves ");
-    cout << wife;
-    
+    function(421234);
 }
