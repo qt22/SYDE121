@@ -16,5 +16,5 @@ void function(unsigned int n){
 }
 
 int main(){
-    function(421234);
+    cout << "test";
 }
