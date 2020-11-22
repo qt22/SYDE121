@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cstring>
 #include <string>
@@ -16,5 +17,19 @@ void function(unsigned int n){
 }
 
 int main(){
-    cout << "test";
+    ifstream in;
+    ofstream out;
+
+    in.open("./input.txt"); // file location !!!
+    out.open("./output.txt"); // file location !!!
+
+    int a = 0;
+    if(in.good() && out.good()){
+        in >> a;
+        out << a;
+
+        in.close();
+        out.close();
+    }
+
 }
